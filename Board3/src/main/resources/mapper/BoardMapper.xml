@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.BoardMapper">
+    <select id="selectAll" resultType= "com.kari.Board3.model.BoardDTO" parameterType = "hashMap" >
+        SELECT * FROM board
+                          LIMIT #{startNum}, #{PAGE_SIZE}
+    </select>
+
+    <select id = "selectOne" resultType = "com.kari.Board3.model.BoardDTO" parameterType = "int">
+        SELECT * FROM board WHERE id = #{id}
+    </select>
+
+    <insert id = "insert" parameterType= "com.kari.Board3.model.BoardDTO">
+        INSERT INTO board(writerId, title, content, imageFileName, writtenDate, updatedDate, views, good)
+        VALUES(#{writerId}, #{title}, #{content}, #{imageFileName}, NOW(), NOW(), 0, 0)
+    </insert>
+
+    <select id = "count" resultType = "int">
+        SELECT COUNT(*) FROM board
+    </select>
+
+    <update id="update" parameterType= "com.kari.Board3.model.BoardDTO">
+        UPDATE board SET title = #{title}, content = #{content} , updatedDate = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType = "int">
+        DELETE FROM board WHERE id = #{id}
+    </delete>
+
+    <insert id="init" parameterType= "com.kari.Board3.model.BoardDTO">
+        INSERT INTO board(writerId, title, content, writtenDate, updatedDate, views, good)
+        VALUES(#{writerId}, #{title}, #{content}, NOW(), NOW(), #{views}, #{good})
+    </insert>
+
+</mapper>
