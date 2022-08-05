@@ -1,7 +1,6 @@
 package com.bitcamp.todo.dto;
 
 import com.bitcamp.todo.model.TodoEntity;
-import com.sun.xml.bind.v2.TODO;
 import lombok.Data;
 
 @Data
@@ -21,6 +20,7 @@ public class TodoDTO {
         this.done = entity.isDone();
     }
 
+    // DTO 객체를 받아서 entity(=table)로 변환
     public static TodoEntity todoEntity(final TodoDTO dto) {
         return TodoEntity.builder()
                 .id(dto.getId())
