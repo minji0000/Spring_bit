@@ -1,8 +1,14 @@
 package com.bitcamp.todo.dto;
 
 import com.bitcamp.todo.model.TodoEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Data
 public class TodoDTO {
     /**
@@ -21,7 +27,7 @@ public class TodoDTO {
     }
 
     // DTO 객체를 받아서 entity(=table)로 변환
-    public static TodoEntity todoEntity(final TodoDTO dto) {
+    public static TodoEntity toEntity(final TodoDTO dto) {
         return TodoEntity.builder()
                 .id(dto.getId())
                 .title(dto.getTitle())
