@@ -4,6 +4,7 @@ import com.bitcamp.todo.dto.ResponseDTO;
 import com.bitcamp.todo.dto.TodoDTO;
 import com.bitcamp.todo.model.TodoEntity;
 import com.bitcamp.todo.service.TodoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,17 +14,18 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("todo")
+@RequiredArgsConstructor
 public class TodoController {
 
-    @Autowired
-    private TodoService service;
+
+    private final TodoService service;
 
     /**
      * 생성 (Create Todo 구현)
      */
     @PostMapping
     // 제네릭 와일드카드
-    public ResponseEntity<?> createTodo(@RequestBody TodoDTO dto){
+    public ResponseEntity<?> createTodo(@RequestBody TodoDTO dto) {
         try {
             String temporaryUserId = "temporary-user";
 
@@ -49,7 +51,7 @@ public class TodoController {
             // (7) ResponseDTO 를 리턴
             return ResponseEntity.ok().body(response);
 
-        } catch (Exception e){
+        } catch (Exception e) {
             String error = e.getMessage();
             // 에러 잡는 이유: 프로그램의 비정삭적인 종료를 막기 위해
             ResponseDTO<TodoDTO> response = ResponseDTO.<TodoDTO>builder().error(error).build();
