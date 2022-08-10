@@ -76,6 +76,7 @@ public class UserController {
     @PostMapping("/signin")
     public ResponseEntity<?> authenticate(@RequestBody UserDTO userDTO) {
 
+
         // 유저 정보 확인하기
         UserEntity user = userService.getByCredentials(userDTO.getUsername(),
                 userDTO.getPassword(), passwordEncoder);
