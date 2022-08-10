@@ -48,7 +48,6 @@ public class TokenProvider {
      * 토큰을 디코딩 및 파싱하여 토큰의 위조 여부 확인하는 작업*/
 
 
-
     public String validateAndGetUserId(String token) {
         Claims claims = Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY.getBytes())
