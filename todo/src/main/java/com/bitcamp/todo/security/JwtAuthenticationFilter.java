@@ -61,7 +61,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                               // 토큰의 Key name
         String bearerToken = request.getHeader("Authorization");
 
-
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             // 앞에 bearer (7글자)를 제외한 뒷자리 문자들만 가져오기 위해서 ! (토큰 스트링만)
             return bearerToken.substring(7);
