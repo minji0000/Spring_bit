@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.travelkkaebi.mapper.JoinMeApplyMapper">
+
+    <select id="selectAllByWriterId" parameterType="PageAndUserIdDTO" resultType="JoinMeApplyResponseDTO">
+        SELECT *
+        FROM join_me_apply
+        WHERE join_me_id = #{joinMeId}
+    </select>
+
+    <select id="selectAllByUserId" parameterType="PageAndUserIdDTO" resultType="JoinMeApplyResponseDTO">
+        SELECT *
+        FROM join_me_apply AS j
+                 JOIN user AS u ON j.user_id = u.user_id
+        WHERE user_id = #{userId}
+        ORDER BY join_me_apply_id DESC LIMIT #{startNum}, #{pageSize}
+    </select>
+
+    <select id="selectOne" parameterType="int" resultType="JoinMeApplyResponseDTO">
+        SELECT *
+        FROM join_me_apply AS j
+                 JOIN user AS u ON j.user_id = u.user_id
+        WHERE join_me_apply_id = #{joinMeApplyId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="joinMeApplyId" parameterType="JoinMeApplyDTO">
+        INSERT INTO join_me_apply (join_me_id, user_id, comment)
+        VALUES (#{joinMeId}, #{userId}, #{comment})
+    </insert>
+</mapper>

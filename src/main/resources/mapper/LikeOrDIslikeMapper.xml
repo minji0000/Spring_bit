@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.travelkkaebi.mapper.LikeOrDislikeMapper">
+
+    <select id="selectOneByDTO" parameterType="LikeOrDislikeDTO" resultType="LikeOrDislikeResponseDTO">
+        SELECT * FROM like_or_dislike
+        WHERE category_id = #{categoryId} AND board_id = #{boardId} AND user_id = #{userId}
+    </select>
+
+    <select id="selectOneById" parameterType="int" resultType="LikeOrDislikeResponseDTO">
+        SELECT * FROM like_or_dislike
+        WHERE like_or_dislike_id = #{likeOrDislikeId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="likeOrDislikeId" parameterType="LikeOrDislikeDTO">
+        INSERT INTO like_or_dislike (category_id, board_id, user_id)
+        VALUES(#{categoryId}, #{boardId}, #{userId})
+    </insert>
+
+    <update id="update" useGeneratedKeys="true" keyProperty="likeOrDislikeId" parameterType="LikeOrDislikeDTO">
+        UPDATE like_or_dislike SET liked=#{liked}, disliked=#{disliked}
+        WHERE like_or_dislike_id = #{likeOrDislikeId} AND user_id=#{userId}
+    </update>
+
+    <select id="getLikeCount" parameterType="LikeOrDislikeDTO" resultType="int">
+        SELECT COUNT(*) FROM like_or_dislike
+        WHERE category_id=#{categoryId} AND board_id=#{boardId} AND liked=1
+    </select>
+
+    <select id="getDislikeCount" parameterType="LikeOrDislikeDTO" resultType="int">
+        SELECT COUNT(*) FROM like_or_dislike
+        WHERE category_id=#{categoryId} AND board_id=#{boardId} AND disliked=1
+    </select>
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.travelkkaebi.mapper.TravelMapMapper">
+
+    <select id="selectAll" parameterType="TravelMapDTO" resultType="TravelMapDTO">
+        SELECT *
+        FROM travel_map
+        WHERE category_id = #{categoryId}
+          AND board_id = #{boardId}
+    </select>
+
+    <select id="selectOne" parameterType="TravelMapDTO" resultType="TravelMapDTO">
+        SELECT *
+        FROM travel_map
+        WHERE travel_map_id = #{travelMapId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="travelMapId" parameterType="TravelMapDTO">
+        INSERT INTO travel_map (category_id, board_id, user_id, map_url)
+        VALUES (#{categoryId}, #{boardId}, #{userId}, #{mapUrl})
+    </insert>
+
+    <update id="update" useGeneratedKeys="true" keyProperty="travelMapId" parameterType="TravelMapDTO">
+        UPDATE travel_map
+        SET map_url=#{mapUrl}
+        WHERE category_id = #{categoryId}
+          AND board_id = #{boardId}
+          AND user_id = #{userId}
+    </update>
+
+    <delete id="delete" parameterType="TravelMapDTO">
+        DELETE
+        FROM travel_map
+        WHERE travel_map_id = #{travelMapId}
+          AND user_id = #{userId}
+    </delete>
+</mapper>

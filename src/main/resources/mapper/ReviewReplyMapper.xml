@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.travelkkaebi.mapper.ReviewReplyMapper">
+
+    <insert id="insert" parameterType="ReviewReplyDTO" useGeneratedKeys="true" keyProperty="reviewReplyId">
+        INSERT INTO review_reply (category_id, board_id, user_id, comment)
+        VALUES (#{categoryId}, #{r.boardId}, #{r.userId}, #{r.comment})
+    </insert>
+
+    <update id="update" parameterType="ReviewReplyDTO" useGeneratedKeys="true" keyProperty="reviewReplyId">
+        UPDATE review_reply SET comment = #{comment} WHERE review_reply_id = #{reviewReplyId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM review_reply WHERE review_reply_id = #{reviewReplyId}
+    </delete>
+
+    <select id="selectAllByBoardId" parameterType="int" resultType="ReviewReplyResponseDTO">
+        SELECT * FROM review_reply JOIN user On review_reply.user_id = user.user_id
+                 WHERE board_id = #{boardId}
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.travelkkaebi.mapper.ImageMapper">
+
+    <select id="selectAll" parameterType="ImageDTO" resultType="ImageDTO">
+        SELECT *
+        FROM board_image
+        WHERE category_id = #{categoryId}
+          AND board_id = #{boardId}
+    </select>
+
+    <select id="selectOne" parameterType="int" resultType="ImageDTO">
+        SELECT *
+        FROM board_image
+        WHERE image_id = #{imageId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="imageId" parameterType="ImageDTO">
+        INSERT INTO board_image (category_id, board_id, user_id, image_url)
+        VALUES (#{categoryId}, #{boardId}, #{userId}, #{imageUrl})
+    </insert>
+
+    <update id="update" useGeneratedKeys="true" keyProperty="imageId" parameterType="ImageDTO">
+        UPDATE board_image
+        SET image_url=#{imageUrl}
+        WHERE image_id = #{imageId}
+          AND user_id = #{userId}
+    </update>
+
+    <delete id="delete" parameterType="ImageDTO">
+        DELETE
+        FROM board_image
+        WHERE image_id = #{imageId}
+          AND user_id = #{userId}
+    </delete>
+</mapper>

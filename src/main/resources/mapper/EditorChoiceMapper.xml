@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bitcamp.travelkkaebi.mapper.EditorChoiceMapper">
+
+    <select id="selectAllByPage" parameterType="hashMap" resultType="EditorChoiceResponseDTO">
+        SELECT * FROM board_editor_choice JOIN user on board_editor_choice.user_id = user.user_id
+        ORDER BY editor_choice_id DESC LIMIT #{startNum}, #{PAGE_SIZE}
+    </select>
+
+    <select id="selectOne" parameterType="int" resultType="EditorChoiceResponseDTO">
+        SELECT * FROM board_editor_choice JOIN user on board_editor_choice.user_id = user.user_id
+        WHERE editor_choice_id = #{editorChoiceId}
+    </select>
+
+    <select id="selectRole" parameterType="int" resultType="String">
+        SELECT role FROM board_editor_choice JOIN user on board_editor_choice.user_id = user.user_id
+        WHERE editor_choice_id = #{editorChoiceId};
+    </select>
+
+    <insert id="insert" parameterType="EditorChoiceDTO" useGeneratedKeys="true" keyProperty="editorChoiceId">
+        INSERT INTO board_editor_choice (user_id, category_id, title, content, region)
+        VALUES ( #{userId}, #{categoryId}, #{title}, #{content}, #{region})
+    </insert>
+
+    <update id="update" parameterType="EditorChoiceDTO" useGeneratedKeys="true" keyProperty="editorChoiceId">
+        UPDATE board_editor_choice SET title = #{title}, content = #{content}
+        WHERE editor_choice_id = #{editorChoiceId}
+    </update>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM board_editor_choice WHERE editor_choice_id  = #{editorChoiceId}
+    </delete>
+
+    <update id="viewPlus" parameterType="int">
+        UPDATE board_editor_choice SET view = view +1 WHERE editor_choice_id  = #{editorChoiceId}
+    </update>
+
+    <select id="editorChoiceCount" resultType="int">
+        SELECT COUNT(*) FROM board_editor_choice
+    </select>
+
+    <select id="selectByTitle" parameterType="String" resultType="EditorChoiceResponseDTO">
+        SELECT * FROM board_editor_choice WHERE title LIKE CONCAT('%', #{title}, '%')
+    </select>
+
+    <select id="selectByContent" parameterType="String" resultType="EditorChoiceResponseDTO">
+        SELECT * FROM board_editor_choice WHERE content LIKE CONCAT('%', #{content}, '%')
+    </select>
+
+    <select id="searchByWriter" parameterType="String" resultType="EditorChoiceResponseDTO">
+        SELECT * FROM board_editor_choice JOIN user On board_editor_choice.user_id = user.user_id
+        WHERE nickname LIKE CONCAT('%',#{writer},'%')
+    </select>
+
+    <select id="keywordByRegion" parameterType="String" resultType="EditorChoiceResponseDTO">
+        SELECT * FROM board_editor_choice WHERE region = #{region}
+    </select>
+
+
+
+
+</mapper>
