@@ -1,0 +1,1 @@
+package com.kari.kariblog.mapper;import com.kari.kariblog.entity.UserEntity;import org.apache.ibatis.annotations.Mapper;@Mapperpublic interface UserMapper {    int save(UserEntity userEntity);}

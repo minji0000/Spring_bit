@@ -1,0 +1,1 @@
+package com.kari.kariblog.config;import org.springframework.context.annotation.Configuration;@Configuration // 스프링 빈(Bean)으로 등록public class WebMvcConfig {    private final long MAX_AGE_SECS = 3600;}
